@@ -23,7 +23,7 @@
       .banner{
         position: relative;
         width: 100%;
-        padding-top: 85.42%;
+        padding-top: 85.43%;
         background: no-repeat center top / auto 100%;
       }
     </style>
@@ -32,12 +32,14 @@
 
     <div class="banner" data-thumb="./scroll_bg_1_thumb.jpg" data-src="./scroll_bg_1.jpg"></div>
 
-    <script type="text/javascript" src="./jquery-1.8.0.min.js"></script>
+    <!-- <script type="text/javascript" src="./jquery-1.8.0.min.js"></script> -->
     <script type="text/javascript" src="../progressive.js"></script>
     <script type="text/javascript">
-      $(function(){
-        $('.banner').progressive();
-      });
+      window.onload = function(){
+        progressive({
+          el: '.banner'
+        });
+      }
     </script>
   </body>
 </html>
