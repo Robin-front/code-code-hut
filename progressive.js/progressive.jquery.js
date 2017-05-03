@@ -22,7 +22,7 @@
       useElOffset: true
     };
 
-    var elH = $el.height();
+    var elH = $el.outerHeight();
     var elW = $el.width();
     var canvas = document.createElement('canvas');
     var $canvas = $(canvas);
