@@ -31,10 +31,20 @@ $(element).progressive({
 
 ### canvasWidth
 
+指定 `canvas` 的宽，默认为 `width: 100%`
+
 ### canvasHeight
+
+指定 `canvas` 的宽，默认为 `height: 100%`
+
+### useElOffset
+
+决定 `canvasWidth` 和 `canvasHeight` 两个配置参数是否生效，值为 `false` 时生效。
 
 ### blur
 
+`canvas` 渲染低质量图片时的模糊参数，默认为 `blur(10px)`
+
 ### zIndex
 
-### useElOffset
+`canvas` 的 `zIndex` 值，当为背景图片做渐进式加载时，canvas 必须位于内容的底部，默认不指定，但 `position: relative;`
