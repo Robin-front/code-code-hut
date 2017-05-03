@@ -18,6 +18,7 @@ let default = {
 ## usage
 
 ```javascript
+// js
 $(element).progressive();
 
 // or
@@ -25,6 +26,9 @@ $(element).progressive();
 $(element).progressive({
   zIndex: -1
 });
+
+// html
+<header data-thumb="xx/xx.thumb.jpg" data-src="xx/xx.origin.jpg"></header>
 ```
 
 ## arguments
