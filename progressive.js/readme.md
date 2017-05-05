@@ -40,19 +40,27 @@ $(element).progressive({
 
 ### canvasWidth
 
-指定 `canvas` 的宽，默认为 `width: 100%`
+指定 `canvas` 的宽。
+
+> 注意，这里包含两个宽度意义，一个是创建时指定的宽度（必须），默认为 `el` 的宽度，如果设置了该值，则为所指定的值；
+另一个为 `computedStyle`, 即最后计算的宽度，默认为 `width: 100%`。
+`useElOffset`值只影响 `computedStyle`
 
 ### canvasHeight
 
-指定 `canvas` 的宽，默认为 `height: 100%`
+指定 `canvas` 的高.
+
+> 注意，这里包含两个高度意义，一个是创建时指定的高度（必须），默认为 `el` 的高度，如果设置了该值，则为所指定的值；
+另一个为 `computedStyle`, 即最后计算的高度，默认为 `width: 100%`；
+`useElOffset`值只影响 `computedStyle`
 
 ### useElOffset
 
-决定 `canvasWidth` 和 `canvasHeight` 两个配置参数是否生效，值为 `false` 时生效。
+决定 `canvasWidth` 和 `canvasHeight` 两个配置参数是否影响 `computedStyle`，值为 `false` 时生效。
 
 ### blur
 
-`canvas` 渲染低质量图片时的模糊参数，默认为 `blur(10px)`
+`canvas` 渲染低质量图片时的模糊参数，默认为 `10px`
 
 ### zIndex
 
