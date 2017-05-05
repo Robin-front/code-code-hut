@@ -21,6 +21,7 @@
       // canvasWidth: auto,
       // canvasHeight: '540'
       blur: '10px',
+      zoom: 'height',
       // zIndex: -1,
       useElOffset: true
     };
@@ -58,10 +59,9 @@
         var swidth = imageThumb.width;
         var sheight = imageThumb.height;
 
-        var rate = elH/sheight; // 以高度为缩放标准
+        var rate = opts.zoom === 'height' ? elH/sheight : elW/swidth; // 以高度为缩放标准
         var width = imageThumb.width*rate;
         var height = imageThumb.height*rate;
-
         //居中显示
         var x = (elW - width) / 2;   // 使用 canvas 的宽度减去图片宽度, 计算居中位置
         var y = (elH - height) / 2; // 使用 canvas 的高度减去图片高度, 计算居中位置
