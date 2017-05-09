@@ -67,8 +67,12 @@
         canvas.height = height;
 
         opts.zIndex && (canvas.zIndex = opts.zIndex);
-        ctx.filter = 'blur(' + opts.radius + 'px)';
-        ctx.drawImage(imageThumb, sx, sy, swidth, sheight, x, y, width, height);
+        if (stackBlurImage){
+          stackBlurImage(imageThumb, canvas, opts.radius);
+        } else {
+          ctx.filter = 'blur(' + opts.radius + 'px)';
+          ctx.drawImage(imageThumb, sx, sy, swidth, sheight, x, y, width, height);
+        }
         el.appendChild(canvas);
 
         var zoom = swidth/elW;

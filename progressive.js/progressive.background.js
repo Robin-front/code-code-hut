@@ -22,7 +22,7 @@
       // el: '.header',
       // canvasWidth: auto,
       // canvasHeight: '540'
-      radius: '10',
+      radius: '5',
       zoom: 'height',
       // zIndex: -1,
       useElOffset: true
@@ -61,7 +61,6 @@
       }
 
       opts.zIndex && (canvas.zIndex = opts.zIndex);
-      ctx.filter = 'blur(' + opts.radius + 'px)';
       el.insertBefore(canvas, el.firstChild);
 
 
@@ -78,7 +77,12 @@
         //居中显示
         var x = (elW - width) / 2; // 使用 canvas 的宽度减去图片宽度, 计算居中位置
         var y = (elH - height) / 2; // 使用 canvas 的高度减去图片高度, 计算居中位置
-        ctx.drawImage(imageThumb, sx, sy, swidth, sheight, x, y, width, height);
+        if (stackBlurImage){
+          stackBlurImage(imageThumb, canvas, opts.radius);
+        } else {
+          ctx.filter = 'blur(' + opts.radius + 'px)';
+          ctx.drawImage(imageThumb, sx, sy, swidth, sheight, x, y, width, height);
+        }
         imageThumb = null;
 
         loadOrigin(el, canvas);
