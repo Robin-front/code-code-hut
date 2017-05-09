@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>背景图渐进式图片加载</title>
+    <title>渐进式图片加载</title>
     <style>
-      .canvas{
+      .progressive-canvas{
         position: absolute;
         left: 0;
         top: 0;
@@ -13,42 +13,55 @@
         transition: visibility 0s linear .7s, opacity .3s .4s;
       }
 
-      .canvas--hidden{
+      .progressive-canvas--hidden{
         opacity: 0;
         visibility: hidden;
       }
       body{
         margin: 0;
       }
-      .banner{
+
+      .images--item{
         position: relative;
-        width: 100%;
-        padding-top: 85.43%;
-        background: no-repeat center top / auto 100%;
+        display: inline-block;
+        width: 20%;
       }
-      .logo{
+      .progressive--thumb{
+        visibility: hidden;
+      }
+      .progressive-origin{
         position: absolute;
-        top: 30%;
-        left: 50%;
-        margin-left: -128px;
+        top: 0;
+        left: 0;
+        /*z-index: 100;*/
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        visibility: visible;
+        transition: visibility 0s linear .7s, opacity .3s .4s;
       }
     </style>
   </head>
   <body>
 
-    <div class="banner" data-thumb="./scroll_bg_1_thumb.jpg" data-src="./scroll_bg_1.jpg">
-      <img src="./bash.png" alt="logo" class="logo">
-    </div>
+    <ul class="images">
+      <li class="images--item J-progressive" data-src="./js.png" data-thumb="./js.thumb.jpg"></li>
+      <li class="images--item J-progressive" data-src="./js.png" data-thumb="./js.thumb.jpg"></li>
+      <li class="images--item J-progressive" data-src="./js.png" data-thumb="./js.thumb.jpg"></li>
+      <li class="images--item J-progressive" data-src="./js.png" data-thumb="./js.thumb.jpg"></li>
+      <li class="images--item J-progressive" data-src="./js.png" data-thumb="./js.thumb.jpg"></li>
+      <li class="images--item J-progressive" data-src="./js.png" data-thumb="./js.thumb.jpg"></li>
+      <li class="images--item J-progressive" data-src="./js.png" data-thumb="./js.thumb.jpg"></li>
+      <li class="images--item J-progressive" data-src="./js.png" data-thumb="./js.thumb.jpg"></li>
+      <li class="images--item J-progressive" data-src="./js.png" data-thumb="./js.thumb.jpg"></li>
+    </ul>
 
-    <!-- <script type="text/javascript" src="./jquery-1.8.0.min.js"></script> -->
     <script type="text/javascript" src="../progressive.js"></script>
     <script type="text/javascript">
-      window.onload = function(){
-        progressive({
-          el: '.banner',
-          // zoom: 'width'
-        });
-      }
+
+      progressive({
+        el: '.J-progressive',
+      })
     </script>
   </body>
 </html>

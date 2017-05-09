@@ -4,12 +4,12 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.progressive = factory();
+    root.progressiveBg = factory();
   }
 }(this, function() {
   'use strict';
 
-  function progressive(opts) {
+  function progressiveBg(opts) {
     var $el = document.querySelectorAll(opts.el);
 
     function support_canvas() {
@@ -18,11 +18,14 @@
     }
 
     var defaults = {
+      type: 'img',
       // el: '.header',
-      radius: '5',
-      imageClass: 'progressive-origin',
-      canvasClass: 'progressive-canvas',
+      // canvasWidth: auto,
+      // canvasHeight: '540'
+      radius: '10',
+      zoom: 'height',
       // zIndex: -1,
+      useElOffset: true
     };
     for (var i in defaults) {
       if (defaults.hasOwnProperty(i)) {
@@ -35,9 +38,7 @@
       // 不支持canvas，直接加载原图
       $el.forEach(function(el, i) {
         var src = el.getAttribute('data-src');
-        var imageOrigin = new Image();
-        imageOrigin.src = src;
-        el.appendChild(imageOrigin);
+        el.style.backgroundImage = 'url(' + src + ')'
       });
 
       return false;
@@ -50,29 +51,34 @@
       var ctx = canvas.getContext("2d");
       var imageThumb = new Image();
 
+      canvas.className = 'progressive-canvas';
+      canvas.width = opts.canvasWidth || elW;
+      canvas.height = opts.canvasHeight || elH;
+
+      if (!opts.useElOffset) {
+        opts.canvasWidth && (canvas.style.width = opts.canvasWidth + 'px');
+        opts.canvasHeight && (canvas.style.height = opts.canvasHeight + 'px');
+      }
+
+      opts.zIndex && (canvas.zIndex = opts.zIndex);
+      ctx.filter = 'blur(' + opts.radius + 'px)';
+      el.insertBefore(canvas, el.firstChild);
+
+
       // 缩略图
       imageThumb.onload = function() {
         var sx = 0;
         var sy = 0;
-        var x = 0;
-        var y = 0;
         var swidth = imageThumb.width;
         var sheight = imageThumb.height;
 
-        var rate  = sheight/swidth;
-        var width = 75;
-        var height = width * rate;
-        canvas.className = opts.canvasClass;
-        canvas.width = width;
-        canvas.height = height;
-
-        opts.zIndex && (canvas.zIndex = opts.zIndex);
-        ctx.filter = 'blur(' + opts.radius + 'px)';
+        var rate = opts.zoom === 'height' ? elH / sheight : elW / swidth; // 以高度为缩放标准
+        var width = imageThumb.width * rate;
+        var height = imageThumb.height * rate;
+        //居中显示
+        var x = (elW - width) / 2; // 使用 canvas 的宽度减去图片宽度, 计算居中位置
+        var y = (elH - height) / 2; // 使用 canvas 的高度减去图片高度, 计算居中位置
         ctx.drawImage(imageThumb, sx, sy, swidth, sheight, x, y, width, height);
-        el.appendChild(canvas);
-
-        var zoom = swidth/elW;
-        el.style.height = sheight / zoom + 'px';
         imageThumb = null;
 
         loadOrigin(el, canvas);
@@ -85,11 +91,9 @@
     function loadOrigin(el, canvas) {
       // 加载原图
       var imageOrigin = new Image();
-      imageOrigin.className = opts.imageClass + ' progressive-canvas--hidden'
       imageOrigin.onload = function() {
-        el.insertBefore(imageOrigin, el.firstChild);
+        el.style.backgroundImage = 'url(' + imageOrigin.src + ')';
         canvas.className = canvas.className + ' progressive-canvas--hidden';
-        imageOrigin.className = opts.imageClass;
         // ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
         imageOrigin = canvas = null;
         // console.log('loaded');
@@ -97,5 +101,5 @@
       imageOrigin.src = el.getAttribute('data-src');
     }
   }
-  return progressive;
+  return progressiveBg;
 }));
