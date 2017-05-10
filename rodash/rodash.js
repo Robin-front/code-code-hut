@@ -7,7 +7,7 @@ function createround(operator){
     number = Number(number);
     precision = precision == null ? 0 : Number(precision);
     if (precision){
-      var pair, value = func(number * Math.pow(10, precision));
+      var value = func(number * Math.pow(10, precision));
       return value * Math.pow(10, -precision);
     }
 
