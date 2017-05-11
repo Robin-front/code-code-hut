@@ -48,3 +48,6 @@ var round = createround('round');
 _.ceil = ceil;
 _.floor = floor;
 _.round = round;
+
+
+module.exports =  _;
