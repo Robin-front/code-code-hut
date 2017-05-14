@@ -8,3 +8,4 @@
 - [观察者模式](observer.md)
 - [中介者模式](mediator.md)
 - [原型模式](prototype.md)
+- [命令模式](command.md)
