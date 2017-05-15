@@ -31,6 +31,7 @@ function insurance(macbook){
 var myMac = new Macbook();
 memoryDecorate(myMac);
 insurance(myMac);
+myMac.cost(); // 8580;
 ```
 
 上例只是对部分接口进行了重写。也可以是扩展。
