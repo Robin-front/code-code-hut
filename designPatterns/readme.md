@@ -16,3 +16,4 @@
 - [享元模式](flyweight.md)
 - [策略模式](strategy.md)
 - [代理模式](proxy.md)
+- [建造者模式](builder.md)
