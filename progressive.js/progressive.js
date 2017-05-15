@@ -150,15 +150,16 @@
     });
 
     // trigger event
-    var event;
-    if (document.createEvent) {
-        event = document.createEvent("HTMLEvents");
-        event.initEvent("scroll", true, true);
-      } else {
-        event = document.createEventObject();
-        event.eventType = "scroll";
-      }
-    window.dispatchEvent(event);
+    // var event;
+    // if (document.createEvent) {
+    //     event = document.createEvent("HTMLEvents");
+    //     event.initEvent("scroll", true, true);
+    //   } else {
+    //     event = document.createEventObject();
+    //     event.eventType = "scroll";
+    //   }
+    // window.dispatchEvent(event);
+
   }
   return progressive;
 }));
