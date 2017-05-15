@@ -15,3 +15,4 @@
 - [装饰者模式](decorate.md)
 - [享元模式](flyweight.md)
 - [策略模式](strategy.md)
+- [代理模式](proxy.md)
