@@ -11,3 +11,4 @@
 - [命令模式](command.md)
 - [外观模式](facade.md)
 - [工厂模式](factory.md)
+- [织入模式](mixin.md)
