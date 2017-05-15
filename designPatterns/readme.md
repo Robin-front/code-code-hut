@@ -12,3 +12,4 @@
 - [外观模式](facade.md)
 - [工厂模式](factory.md)
 - [织入模式](mixin.md)
+- [装饰者模式](decorate.md)
