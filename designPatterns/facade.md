@@ -61,3 +61,7 @@ var module = (function() {
 // Outputs: "current value: 10" and "running"
 module.facade( {run: true, val:10} );
 ```
+
+## 优劣
+
+门面一般没有多少缺陷，**但是性能是值得注意的问题**。也就是说，需要确定门面在为我们提供实现的同时是否为我们带来了隐性的消耗，如果是这样的话，那么这种消耗是否合理。
