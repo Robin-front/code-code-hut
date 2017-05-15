@@ -18,3 +18,4 @@
 - [代理模式](proxy.md)
 - [建造者模式](builder.md)
 - [迭代器模式](iterator.md)
+- [适配器模式](adapter.md)
