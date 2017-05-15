@@ -5,3 +5,4 @@ code code hut! 🤓  not coconut! 😕
 - [渐进式图片延迟加载](https://robin-front.github.io/code-code-hut/progressive.js/demo/index.html)
 - [渐进式背景图片延迟加载](https://robin-front.github.io/code-code-hut/progressive.js/demo/index.background.html)
 - [rodash](https://robin-front.github.io/code-code-hut/rodash/rodash.js)
+- [设计模式](./designPatterns/readme.md) *(总结笔记)*
