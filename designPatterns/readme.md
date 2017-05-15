@@ -10,3 +10,4 @@
 - [原型模式](prototype.md)
 - [命令模式](command.md)
 - [外观模式](facade.md)
+- [工厂模式](factory.md)
