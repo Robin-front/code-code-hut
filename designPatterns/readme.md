@@ -17,3 +17,4 @@
 - [策略模式](strategy.md)
 - [代理模式](proxy.md)
 - [建造者模式](builder.md)
+- [迭代器模式](iterator.md)
