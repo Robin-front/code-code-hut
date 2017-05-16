@@ -1,5 +1,6 @@
 // 快速排序
-
+//优点： 快，对于完全乱序，很适合
+//数据大时表现较好
 function quickSort(arr, left, right){
   left = (left === undefined ? 0 : left), right = (right === undefined ? arr.length-1 : right);
 
