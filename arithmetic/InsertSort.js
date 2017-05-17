@@ -1,5 +1,6 @@
 // 直接插入排序
 
+//用于倒序序列时，性能较差
 function insertSort(arr){
   var len = arr.length, i = 1, temp, j;
   for (; i < len; i++){
