@@ -23,22 +23,24 @@
     if (this.root === null){
       this.root = node;
     } else {
-      var parent = this.root;
+      var parent = null,
+          current = this.root;
       while (true) {
-        if (parent > data){
-          // 比parent小，则继续比较左节点
-          parent = parent.left;
+        parent = current;
+        if (current > data){
+          // 比current小，则继续比较左节点
+          current = current.left;
           // 如果左节点为 null， 则直接插入左节点
-          if (parent === null){
-            parent = node;
+          if (current === null){
+            parent.left = node;
             break;
           }
         } else {
-          // 比parent大或等于，则继续比较右节点
-          parent = parent.right;
+          // 比 current 大或等于，则继续比较右节点
+          current = current.right;
           // 如果右节点为 null， 则直接插入右节点
-          if (parent === null){
-            parent = node;
+          if (current === null){
+            parent.right = node;
             break;
           }
         }
@@ -156,4 +158,5 @@
     }
   };
 
+  module.exports = BSTree;
 })()
