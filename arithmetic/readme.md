@@ -10,7 +10,7 @@
 
 ### 五大经典查找
 
-- 线性查找: 分为[顺序查找](SequenceSearch.js)， 折半查找
-- 哈希查找
+- 线性查找: 分为[顺序查找](SequenceSearch.js)， [折半查找](BinarySearch.js)
+- [哈希查找](HashSearch.js)
 - 索引查找
 - 二叉排序树
