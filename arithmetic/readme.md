@@ -12,5 +12,5 @@
 
 - 线性查找: 分为[顺序查找](SequenceSearch.js)， [折半查找](BinarySearch.js)
 - [哈希查找](HashSearch.js)
-- 索引查找
+- [索引查找](IndexSearch.js)
 - 二叉排序树
