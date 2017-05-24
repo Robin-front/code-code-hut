@@ -1,24 +1,23 @@
+var _ = {};
 
-const _ = {};
-
-const createround = operator =>{
-  const func = Math[operator];
-  return (number, precision) => {
+var createround = function createround(operator) {
+  var func = Math[operator];
+  return function (number, precision) {
     number = Number(number);
     precision = precision == null ? 0 : Number(precision);
-    if (precision){
-      const value = func(number * Math.pow(10, precision));
+    if (precision) {
+      var value = func(number * Math.pow(10, precision));
       return value * Math.pow(10, -precision);
     }
 
     return func(number);
-  }
-}
+  };
+};
 
 // _ceil(6.004) => 7
 // _.ceil(6.004, 2) => 6.01
 // _ceil(6040, -2) => 6100
-const ceil = createround('ceil');
+var ceil = createround('ceil');
 
 /**
  *
@@ -31,7 +30,7 @@ const ceil = createround('ceil');
  * _.floor(4060, -2);
  * // => 4000
  **/
-const floor = createround('floor')
+var floor = createround('floor');
 
 /**
   * _.round(4.006);
@@ -43,11 +42,10 @@ const floor = createround('floor')
   * _.round(4060, -2);
   * // => 4100
  */
-const round = createround('round');
+var round = createround('round');
 
 _.ceil = ceil;
 _.floor = floor;
 _.round = round;
 
-
-module.exports =  _;
+module.exports = _;
