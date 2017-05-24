@@ -14,4 +14,5 @@ function insertSort(arr){
   return arr;
 }
 
-insertSort([24,667,584,3,45,3,7,6,56,2,1,67,564,7,6,45,3,34,3,5,345])
+// insertSort([24,667,584,3,45,3,7,6,56,2,1,67,564,7,6,45,3,34,3,5,345])
+module.exports = insertSort;

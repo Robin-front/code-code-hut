@@ -40,3 +40,4 @@ function mergeSort(arr){
 }
 
 // console.log(mergeSort([123,23,4,341,2,4352,323,32,532,543,5,32,3,4,1,234,3,32]));
+module.exports = mergeSort;

@@ -41,3 +41,4 @@ function Division (arr, left, right){
 
 // console.log('begin');
 // quickSort([123,141,45,324,234,43,76,5,435,234,66,34,6,3,43,156,332]);
+module.exports = quickSort;
