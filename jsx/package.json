@@ -1,0 +1,15 @@
+{
+  "name": "jsx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "demo": "./node_modules/.bin/webpack webpack.config.js"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "webpack": "^2.6.1"
+  }
+}
