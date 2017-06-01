@@ -7,6 +7,7 @@
 - 插入排序： 包括[直接插入排序](InsertSort.js)，[希尔排序](ShellSort.js)
 - 合并排序： [归并排序](MergeSort.js)
 
+[附排序可视化参考](http://jsdo.it/norahiko/oxIy/fullscreen)
 
 ### 五大经典查找
 
