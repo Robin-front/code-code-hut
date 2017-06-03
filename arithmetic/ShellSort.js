@@ -24,3 +24,4 @@ function shellSort(arr){
 }
 
 // shellSort([1,4,5322,3,432,42,3,512,6245,643,6,73,3,45,41,536,31,343]);
+module.exports = shellSort;

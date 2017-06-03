@@ -16,8 +16,9 @@ var SelectionSort = function (arr){
     arr[i] = arr[min];
     arr[min] = temp;
   }
-  console.log('arr', arr);
+  // console.log('arr', arr);
   return arr;
 }
 
-SelectionSort([32,25,4,457,32,6732,73,25,3,322,82,23]);
+// SelectionSort([32,25,4,457,32,6732,73,25,3,322,82,23]);
+module.exports = SelectionSort;

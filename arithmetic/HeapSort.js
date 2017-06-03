@@ -72,5 +72,6 @@ function heapSort(array){
   return sort(array);
 }
 
+module.exports = heapSort;
 
-heapSort([231,34,2,32,52,634,2,45,34,645,3,1,464,234,743,23]);
+// heapSort([231,34,2,32,52,634,2,45,34,645,3,1,464,234,743,23]);
