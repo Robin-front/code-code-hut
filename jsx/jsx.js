@@ -1,4 +1,7 @@
 
+/** @private */
+let memoize = (fn, mem={}) => k => mem.hasOwnProperty(k) ? mem[k] : (mem[k] = fn(k));
+
 export function h(nodeName, attributes, ...args){
   let children = args.length ? [].concat(...args) : null;
   return new VNode(nodeName, attributes, children);
@@ -20,6 +23,7 @@ function _render(vnode){
   let a  = vnode.attributes || {};
   Object.keys(a).forEach(k => {
     // n.setAttribute(k, a[k]);
+    // setAttribute and addEvents
     setAccessor(n, k, a[k]);
   });
 
@@ -38,9 +42,7 @@ class VNode{
 }
 
 
-/** @private Set a named attribute on the given Node, with special behavior for some names and event handlers.
- *	If `value` is `null`, the attribute/handler will be removed.
- */
+/** @private 属性设置 */
 function setAccessor(node, name, value, old) {
 	if (name==='class') {
 		node.className = value;
@@ -54,14 +56,12 @@ function setAccessor(node, name, value, old) {
 }
 
 
-/** @private For props without explicit behavior, apply to a Node as event handlers or attributes. */
 function setComplexAccessor(node, name, value, old) {
 	if (name.substring(0,2)==='on') {
 		let type = name.substring(2).toLowerCase(),
 			l = node._listeners || (node._listeners = {});
-		if (!l[type]) node.addEventListener(type, value);
+		if (!l[type]) node.addEventListener(type, eventProxy);
 		l[type] = value;
-		// @TODO automatically remove proxy event listener when no handlers are left
 		return;
 	}
 
@@ -72,4 +72,21 @@ function setComplexAccessor(node, name, value, old) {
 	else if (type!=='function' && type!=='object') {
 		node.setAttribute(name, value);
 	}
+}
+
+// 改变事件上下文
+function eventProxy(e){
+  let l = this._listeners,
+      fn = l[toLowerCase(e.type)];
+  if (fn){
+    return fn.call(this, e);
+  }
+}
+
+const toLowerCase = memoize(name => name.toLowerCase());
+
+/** @private */
+function trigger(obj, name, ...args) {
+	let fn = obj[name];
+	if (fn && typeof fn==='function') return fn.apply(obj, args);
 }

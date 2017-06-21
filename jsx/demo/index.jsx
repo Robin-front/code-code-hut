@@ -18,7 +18,7 @@ let vdom = (
 	<div id="foo">
 		<p>Look, a simple JSX DOM renderer!</p>
 		<ul>{ foo(ITEMS) }</ul>
-		<button onClick={page.click}>click me!</button>
+		<button onClick={page.click} type="button" class="btn">click me!</button>
 	</div>
 );
 console.log('vDom', vdom);
