@@ -1,5 +1,21 @@
 /** @jsx h */
-import {h, render} from '../jsx.js'
+import { h, render, Components } from '../jsx.js'
+
+class Demo extends Components{
+
+	componentDidMount(){
+		console.log('componentDidMount');
+	}
+
+	render (){
+		return (<div id="foo2">
+			<p>Look, a simple JSX DOM renderer!</p>
+			<ul>{ foo(ITEMS) }</ul>
+			<button onClick={page.click} type="button" class="btn">click me!</button>
+		</div>);
+	}
+
+}
 
 // JSX -> VDOM:
 const ITEMS = 'hi, render jsx everywhere'.split(' ');
@@ -13,17 +29,19 @@ let page = {
 		alert('hi!');
 	}
 }
+//
+// let vdom = (
+// 	<div id="foo">
+// 		<p>Look, a simple JSX DOM renderer!</p>
+// 		<ul>{ foo(ITEMS) }</ul>
+// 		<button onClick={page.click} type="button" class="btn">click me!</button>
+// 	</div>
+// );
+// console.log('vDom', vdom);
 
-let vdom = (
-	<div id="foo">
-		<p>Look, a simple JSX DOM renderer!</p>
-		<ul>{ foo(ITEMS) }</ul>
-		<button onClick={page.click} type="button" class="btn">click me!</button>
-	</div>
-);
-console.log('vDom', vdom);
+
 
 
 // vDom -> dom
-let dom = render(vdom, document.body);
+let dom = render(<Demo />, document.body);
 console.log('dom', dom);
