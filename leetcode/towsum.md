@@ -58,7 +58,7 @@ var threeSum = function (nums, target){
   var ans = [];
   var map = {};
   var temp;
-  for (var i = 0; i < nums.length; i++) {
+  for (var i = 0, len = nums.length-2; i < len; i++) {
     temp = target - nums[i];
     ans = twoSum(nums, temp, i); // 需要加一个参数
     if (ans !== -1){
