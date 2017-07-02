@@ -1,17 +1,35 @@
 /** @jsx h */
-import { h, render, Components } from '../jsx.js'
+import { h, render, Component } from '../jsx.js'
+// import { h, render, Component } from '../preact.js'
 
-class Demo extends Components{
+class Demo extends Component{
+
+	constructor(){
+		super();
+		this.state = {
+			time: '1'
+		}
+	}
 
 	componentDidMount(){
 		console.log('componentDidMount');
 	}
 
+	click(){
+		console.log('click!');
+		this.setState({
+			time: '2'
+		})
+	}
+
+
 	render (){
+		let state = this.state;
 		return (<div id="foo2">
 			<p>Look, a simple JSX DOM renderer!</p>
 			<ul>{ foo(ITEMS) }</ul>
-			<button onClick={page.click} type="button" class="btn">click me!</button>
+			<button onClick={this.click.bind(this)} type="button" class="btn">click me!</button>
+			<p>{state.time}</p>
 		</div>);
 	}
 
@@ -24,24 +42,7 @@ function foo(items) {
 	return items.map( p => <li> {p} </li> );
 }
 
-let page = {
-	click (){
-		alert('hi!');
-	}
-}
-//
-// let vdom = (
-// 	<div id="foo">
-// 		<p>Look, a simple JSX DOM renderer!</p>
-// 		<ul>{ foo(ITEMS) }</ul>
-// 		<button onClick={page.click} type="button" class="btn">click me!</button>
-// 	</div>
-// );
-// console.log('vDom', vdom);
-
-
-
 
 // vDom -> dom
-let dom = render(<Demo />, document.body);
-console.log('dom', dom);
+let dom = render(<Demo />, document.getElementById('app'));
+// console.log('dom', dom);

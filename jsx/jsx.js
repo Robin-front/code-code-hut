@@ -63,7 +63,7 @@ function createComponentFromVNode(vnode){
   let node = component.base;
   node._component = component;
   node._componentConstructor = node.nodeName;
-  return component;
+  return node;
 }
 
 const componentRecycler = {
@@ -75,7 +75,6 @@ const componentRecycler = {
     if (list && list.length){
       return list.splice(0, 1)[0];
     }
-    console.log(nodeName);
     return new nodeName();
 
   },
@@ -102,24 +101,29 @@ function _render(dom, vnode, rootComponent){
     return buildComponentFromVNode(dom, vnode);
   }
 
-  if (typeof vnode=== 'string') { //如果是字符串，直接创建文本节点，object没有split方法
+  if (typeof vnode === 'string') { //如果是字符串，直接创建文本节点，object没有split方法
     if (dom){
       if (dom.nodeType === 3){
         dom.textContent = vnode;
         return dom;
       } else {
         if (dom.nodeType === 1){
-          recycle.collect(dom);
+          recycler.collect(dom);
         }
       }
     }
     return document.createTextNode(vnode);
   }
 
+  if (nodeName === null || nodeName === undefined){
+    nodeName = 'x-undefined-element';
+  }
+
   if (!dom){
     out = recycler.create(nodeName);
-  } else if (dom.nodeName.toLowerCase !== nodeName){
+  } else if (dom.nodeName.toLowerCase() !== nodeName){
     out = recycler.create(nodeName);
+    appendChildren(out, Array.prototype.slice.call(dom.childNodes));
     if (dom.nodeType === 1){
       recycler.collect(dom);
     }
@@ -183,7 +187,7 @@ function _render(dom, vnode, rootComponent){
   if (vnode.children){
     for (let i = 0, vlen = vnode.children.length; i < vlen; i++){
       let vchild = vnode.children[i],
-          attr = child.attributes,
+          attr = vchild.attributes,
           key, child;
       if (attr){
         key = attr.key;
@@ -211,10 +215,10 @@ function _render(dom, vnode, rootComponent){
     if (out.childNodes[i] !== newChildren[i]){
       let child = newChildren[i],
           component = child._component,
-          next = out.childnodes[i+1];
+          next = out.childNodes[i+1];
       if (component){ trigger(component, 'componentWillMount'); }
       if (next){
-        out.insetBefort(child, next);
+        out.insertBefore(child, next);
       } else {
         out.appendChild(child);
       }
@@ -223,11 +227,11 @@ function _render(dom, vnode, rootComponent){
   }
 
   //删除无用的children;
-  for (let j = 0, len = children.length; i< len; i++){
-    let child = children[j],
+  for (let i = 0, len = children.length; i< len; i++){
+    let child = children[i],
         component = child._component;
     if (component){ trigger(component, 'componentWillUnmount'); }
-    children.parentNode.removeChild(child);
+    child.parentNode.removeChild(child);
     if (component){
       trigger(component, 'componentDidUnmount');
       componentRecycler.collect(child);
@@ -239,6 +243,22 @@ function _render(dom, vnode, rootComponent){
   return out;
 }
 
+function appendChildren(parent, children){
+  let len = children.length;
+  if (len<=2){
+    parent.appendChild(parend, children[0]);
+    if (len === 2){
+      parent.appendChild(parent, children[1]);
+    }
+    return;
+  }
+
+  let fragments = document.createDocumentFragment();
+  for (let i=0; i < len; i++){
+    fragments.appendChild(children[i]);
+  }
+  parent.appendChild(fragments);
+}
 
 function isSameNodeType(node, vnode){
 	if (node.nodeType === 3){
@@ -268,7 +288,7 @@ let recycler = {
     node.remove();
     let len = node.attributes && node.attributes.length;
     if (len){
-      for (let i = len; i > 0; i--){
+      for (let i = len; i--; ){
         node.removeAttribute(node.attributes[i].name);
       }
     }
@@ -359,7 +379,7 @@ function trigger(obj, name, ...args) {
 	if (fn && typeof fn==='function') return fn.apply(obj, args);
 }
 
-export class Components {
+export class Component {
   constructor() {
     this._dirty = this._disablerendering = false;
     this.nextProps = this.base = null;
@@ -373,7 +393,7 @@ export class Components {
   }
 
   setState(state){
-    extent(this.state, state);
+    extend(this.state, state);
     this.triggerRender();
   }
 
@@ -398,7 +418,8 @@ export class Components {
   }
 
   _render(opts=ENPTY){
-    if (this._disablerendering === false) { return;}
+    console.log('_render');
+    if (this._disablerendering === true) { return;}
     this._dirty = false;
 
     if (this.base && trigger(this, 'shouldComponentUpdate', this.props, this.state) === false){
@@ -410,10 +431,9 @@ export class Components {
     trigger(this, 'componentWillUpdate');
 
     let rendered = trigger(this, 'render', this.props, this.state);
-    console.log('opts', opts);
     if (this.base || opts.build === true){
       let base = _render(this.base, rendered||'', this);
-      console.log(base);
+      console.log('base', base);
       if (this.base && base !== this.base){
         let parent = this.base.parentNode;
         parent && parent.replaceChild(base, this.base);
@@ -452,11 +472,11 @@ const renderQueue = {
   },
   process(){
     let items = renderQueue.items,
-        len = item.length;
+        len = items.length;
 
     renderQueue.items = renderQueue.itemsOffline;
     renderQueue.items.length = 0;
-    renderQueue.itemsOffline = item;
+    renderQueue.itemsOffline = items;
 
     while (len--) {
       if (items[len]._dirty){
@@ -467,4 +487,4 @@ const renderQueue = {
 }
 
 
-export default { render, h, Components };
+export default { render, h, Component };
