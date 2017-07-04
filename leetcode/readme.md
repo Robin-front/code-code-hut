@@ -5,3 +5,4 @@
 2. [Add Two Numbers](addtwonumbers.md) 使用单链模拟两数相加。  _medium_
 3. [Longest Substring Without Repeating Characters](longestsubstringlength.md) 找出字符串中连续的不包含重复字母的最长字符串长度。  _medium_
 5. [Longest Palindromic Substring](longestPalindromicSubstring.md) 找出字符串中最长的回文字符串。  _medium_
+6. [ZigZag Conversion](ZigZagConversion.md) 蛇形转换 _medium_
