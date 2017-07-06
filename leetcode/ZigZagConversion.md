@@ -9,10 +9,11 @@ convert:
 P   A   H   N
 A P L S I I G
 Y   I   R
-
+0n+1     n+2       3n       4n+1
+0n+2 n+1 2n   2n+2 3n+1  4n
+0n+n     2n+1      3n+2
 print: "PAHNAPLSIIGYIR"
 ```
-
 这题有点像找规律。XDD..
 
 以下复杂度为 O(n)

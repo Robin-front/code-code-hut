@@ -91,7 +91,7 @@ export class Component {
 	*	@param {object} [opts.render=true] - If `false`, no render will be triggered.
 	 */
 	setProps(props, opts=EMPTY) {
-		let d = this._disableRendering===true;
+		let d = this._disableRendering;
 		this._disableRendering = true;
 		hook(this, 'componentWillReceiveProps', props, this.props);
 		this.nextProps = props;

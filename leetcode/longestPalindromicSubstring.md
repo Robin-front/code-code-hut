@@ -35,7 +35,7 @@ var longestPalindrome = function(s) {
         while(k<len-1 && j>0 && s[k+1] === s[j-1]){ // 回文条件
             k++;
             j--;
-    	}
+      	}
         newLen = k-j+1;
         if (newLen > max){
             max = newLen;

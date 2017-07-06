@@ -69,11 +69,14 @@ function createComponentFromVNode(vnode){
 const componentRecycler = {
   component: {},
   create(nodeName){
-    let name = nodeName.name,
-        list = componentRecycler.component[name];
+    let list = componentRecycler.component[nodeName.name];
 
     if (list && list.length){
-      return list.splice(0, 1)[0];
+      for (let i=list.length; i--; ) {
+        if (list[i].constructor===nodeName) {
+          return list.splice(i, 1)[0];
+        }
+      }
     }
     return new nodeName();
 
@@ -344,7 +347,7 @@ function setAccessor(node, name, value, old) {
 
 function setComplexAccessor(node, name, value, old) {
 	if (name.substring(0,2)==='on') {
-		let type = name.substring(2).toLowerCase(),
+		let type = name.substring(2).toUpperCase(),
   			l = node._listeners || (node._listeners = {});
         //对 events 进行缓存，更新时直接替换 value,每种事件只能有一个value
 		if (!l[type]){
@@ -365,13 +368,11 @@ function setComplexAccessor(node, name, value, old) {
 // 改变事件上下文
 function eventProxy(e){
   let l = this._listeners,
-      fn = l[toLowerCase(e.type)];
+      fn = l[e.type.toUpperCase()];
   if (fn){
     return fn.call(this, e);
   }
 }
-
-const toLowerCase = memoize(name => name.toLowerCase());
 
 /** @private */
 function trigger(obj, name, ...args) {
@@ -419,7 +420,7 @@ export class Component {
 
   _render(opts=ENPTY){
     console.log('_render');
-    if (this._disablerendering === true) { return;}
+    if (this._disablerendering) { return;}
     this._dirty = false;
 
     if (this.base && trigger(this, 'shouldComponentUpdate', this.props, this.state) === false){
