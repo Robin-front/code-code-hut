@@ -139,6 +139,7 @@ export class Component {
 
 		if (this.base || opts.build===true) {
 			let base = build(this.base, rendered || EMPTY_BASE, this);
+			console.log('base', base);
 			if (this.base && base!==this.base) {
 				let p = this.base.parentNode;
 				if (p) p.replaceChild(base, this.base);
@@ -197,6 +198,7 @@ export function h(nodeName, attributes, ...args) {
 
 	let p = new VNode(nodeName, attributes || undefined, children || undefined);
 	hook(hooks, 'vnode', p);
+	console.log('h', p);
 	return p;
 }
 
@@ -274,6 +276,8 @@ function createComponentFromVNode(vnode) {
 	let node = component.base;
 	node._component = component;
 	node._componentConstructor = vnode.nodeName;
+	console.log('node', node);
+	console.log('component', component);
 
 	return node;
 }
