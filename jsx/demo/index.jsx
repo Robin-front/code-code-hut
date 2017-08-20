@@ -1,6 +1,6 @@
 /** @jsx h */
-import { h, render, Component } from '../jsx.js'
-// import { h, render, Component } from '../preact.js'
+// import { h, render, Component } from '../jsx.js'
+import { h, render, Component } from '../preact.js'
 
 class Demo extends Component{
 
