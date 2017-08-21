@@ -9,3 +9,5 @@ code code hut! 🤓  not coconut! 😕
 - [基本算法](./arithmetic/readme.md) *(总结笔记)*
 - [use JSX everywhere](./jsx/)
 - [Leetcode](./leetcode/readme.md)
+- [requestAnimationFrame.js](./requestAnimationFrame.js) *requestAnimationFrame polyfill*
+- [schdule.js](./schdule.js) *easy to invoke requestAnimationFrame*
