@@ -8,9 +8,12 @@ let pkg = require('./package.json');
 let external = Object.keys(pkg.dependencies);
 
 let config = {
-  entry: 'index.js',
-  dest: 'dist/intersectionObserver.js',
-  format:'umd',
+  input: 'src/index.js',
+  output: {
+    file: 'dist/intersectionObserver.js',
+    format:'umd',
+  },
+  name: 'intersectionObserver',
   plugins: [
     babel(babelrc({ addModuleOptions: false })),
     // uglify()

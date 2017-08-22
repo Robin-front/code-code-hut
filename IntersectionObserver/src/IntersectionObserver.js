@@ -1,44 +1,10 @@
+import IntersectionObserverEntry from './IntersectionObserverEntry.js'
+import { utils, Event } from './utils'
 
-function getEmptyRect() {
-  return {
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    width: 0,
-    height: 0
-  };
-}
+var registry = [];
 
-class IntersectionObserverEntry {
-  constructor(entry) {
-    this.time = entry.time;
-    this.target = entry.target;
-    this.rootBounds = entry.rootBounds;
-    this.boundingClientRect = entry.boundingClientRect;
-    this.intersectionRect = entry.intersectionRect || getEmptyRect();
-    this.isIntersecting = !!entry.intersectionRect;
-
-    // Calculates the intersection ratio.
-    var targetRect = this.boundingClientRect;
-    var targetArea = targetRect.width * targetRect.height;
-    var intersectionRect = this.intersectionRect;
-    var intersectionArea = intersectionRect.width * intersectionRect.height;
-
-    // Sets intersection ratio.
-    if (targetArea) {
-      this.intersectionRatio = intersectionArea / targetArea;
-    } else {
-      // If area is zero and is intersecting, sets to 1, otherwise to 0
-      this.intersectionRatio = this.isIntersecting ? 1 : 0;
-    }
-  }
-}
-
-
-class IntersectionObserver {
-  constructor(callback, opt_options) {
-    var options = opt_options || {};
+export default class IntersectionObserver {
+  constructor(callback, options={}) {
 
     if (typeof callback != 'function') {
       throw new Error('callback must be a function');
@@ -49,8 +15,7 @@ class IntersectionObserver {
     }
 
     // Binds and throttles `this._checkForIntersections`.
-    this._checkForIntersections = throttle(
-        this._checkForIntersections.bind(this), this.THROTTLE_TIMEOUT);
+    this._checkForIntersections = utils.throttle(this._checkForIntersections.bind(this), this.THROTTLE_TIMEOUT);
 
     // Private properties.
     this._callback = callback;
@@ -66,8 +31,8 @@ class IntersectionObserver {
     }).join(' ');
   }
 
-  THROTTLE_TIMEOUT= 100;
-  POLL_INTERVAL= null;
+  THROTTLE_TIMEOUT = 100;
+  POLL_INTERVAL = null;
 
   observe(target) {
     if (this._observationTargets.some(function(item) {
@@ -107,8 +72,7 @@ class IntersectionObserver {
     return records;
   }
 
-  _initThresholds (opt_threshold) {
-    var threshold = opt_threshold || [0];
+  _initThresholds (threshold = [0]) {
     if (!Array.isArray(threshold)) threshold = [threshold];
 
     return threshold.sort().filter(function(t, i, a) {
@@ -146,12 +110,10 @@ class IntersectionObserver {
       // If a poll interval is set, use polling instead of listening to
       // resize and scroll events or DOM mutations.
       if (this.POLL_INTERVAL) {
-        this._monitoringInterval = setInterval(
-            this._checkForIntersections, this.POLL_INTERVAL);
-      }
-      else {
-        addEvent(window, 'resize', this._checkForIntersections, true);
-        addEvent(document, 'scroll', this._checkForIntersections, true);
+        this._monitoringInterval = setInterval(this._checkForIntersections, this.POLL_INTERVAL);
+      } else {
+        Event.addEvent(window, 'resize', this._checkForIntersections, true);
+        Event.addEvent(document, 'scroll', this._checkForIntersections, true);
 
         if ('MutationObserver' in window) {
           this._domObserver = new MutationObserver(this._checkForIntersections);
@@ -173,8 +135,8 @@ class IntersectionObserver {
       clearInterval(this._monitoringInterval);
       this._monitoringInterval = null;
 
-      removeEvent(window, 'resize', this._checkForIntersections, true);
-      removeEvent(document, 'scroll', this._checkForIntersections, true);
+      Event.removeEvent(window, 'resize', this._checkForIntersections, true);
+      Event.removeEvent(document, 'scroll', this._checkForIntersections, true);
 
       if (this._domObserver) {
         this._domObserver.disconnect();
@@ -185,18 +147,18 @@ class IntersectionObserver {
 
   _checkForIntersections () {
     var rootIsInDom = this._rootIsInDom();
-    var rootRect = rootIsInDom ? this._getRootRect() : getEmptyRect();
+    var rootRect = rootIsInDom ? this._getRootRect() : utils.getEmptyRect();
 
     this._observationTargets.forEach(function(item) {
       var target = item.element;
-      var targetRect = getBoundingClientRect(target);
+      var targetRect = utils.getBoundingClientRect(target);
       var rootContainsTarget = this._rootContainsTarget(target);
       var oldEntry = item.entry;
       var intersectionRect = rootIsInDom && rootContainsTarget &&
           this._computeTargetAndRootIntersection(target, rootRect);
 
       var newEntry = item.entry = new IntersectionObserverEntry({
-        time: now(),
+        time: utils.now(),
         target: target,
         boundingClientRect: targetRect,
         rootBounds: rootRect,
@@ -226,13 +188,13 @@ class IntersectionObserver {
     }
   }
 
-  _computeTargetAndRootIntersection () {
+  _computeTargetAndRootIntersection (target, rootRect) {
     // If the element isn't displayed, an intersection can't happen.
     if (window.getComputedStyle(target).display == 'none') return;
 
-    var targetRect = getBoundingClientRect(target);
+    var targetRect = utils.getBoundingClientRect(target);
     var intersectionRect = targetRect;
-    var parent = getParentNode(target);
+    var parent = utils.getParentNode(target);
     var atRoot = false;
 
     while (!atRoot) {
@@ -254,18 +216,18 @@ class IntersectionObserver {
         if (parent != document.body &&
             parent != document.documentElement &&
             parentComputedStyle.overflow != 'visible') {
-          parentRect = getBoundingClientRect(parent);
+          parentRect = utils.getBoundingClientRect(parent);
         }
       }
 
       // If either of the above conditionals set a new parentRect,
       // calculate new intersection data.
       if (parentRect) {
-        intersectionRect = computeRectIntersection(parentRect, intersectionRect);
+        intersectionRect = utils.computeRectIntersection(parentRect, intersectionRect);
 
         if (!intersectionRect) break;
       }
-      parent = getParentNode(parent);
+      parent = utils.getParentNode(parent);
     }
     return intersectionRect;
   }
@@ -273,7 +235,7 @@ class IntersectionObserver {
   _getRootRect () {
     var rootRect;
     if (this.root) {
-      rootRect = getBoundingClientRect(this.root);
+      rootRect = utils.getBoundingClientRect(this.root);
     } else {
       // Use <html>/<body> instead of window since scroll bars affect size.
       var html = document.documentElement;
@@ -290,7 +252,7 @@ class IntersectionObserver {
     return this._expandRectByRootMargin(rootRect);
   }
 
-  _expandRectByRootMargin () {
+  _expandRectByRootMargin (rect) {
     var margins = this._rootMarginValues.map(function(margin, i) {
       return margin.unit == 'px' ? margin.value :
           margin.value * (i % 2 ? rect.width : rect.height) / 100;
@@ -307,7 +269,7 @@ class IntersectionObserver {
     return newRect;
   }
 
-  _hasCrossedThreshold () {
+  _hasCrossedThreshold (oldEntry, newEntry) {
     // To make comparing easier, an entry that has a ratio of 0
     // but does not actually intersect is given a value of -1
     var oldRatio = oldEntry && oldEntry.isIntersecting ?
@@ -331,11 +293,11 @@ class IntersectionObserver {
   }
 
   _rootIsInDom () {
-    return !this.root || containsDeep(document, this.root);
+    return !this.root || utils.containsDeep(document, this.root);
   }
 
   _rootContainsTarget (target) {
-    return containsDeep(this.root || document, target);
+    return utils.containsDeep(this.root || document, target);
   }
 
   _registerInstance () {
@@ -350,105 +312,3 @@ class IntersectionObserver {
   }
 
 }
-
-function now() {
-  return window.performance && performance.now && performance.now();
-}
-
-function throttle(fn, timeout) {
-  var timer = null;
-  return function () {
-    if (!timer) {
-      timer = setTimeout(function() {
-        fn();
-        timer = null;
-      }, timeout);
-    }
-  };
-}
-
-function addEvent(node, event, fn, opt_useCapture) {
-  if (typeof node.addEventListener == 'function') {
-    node.addEventListener(event, fn, opt_useCapture || false);
-  }
-  else if (typeof node.attachEvent == 'function') {
-    node.attachEvent('on' + event, fn);
-  }
-}
-
-function removeEvent(node, event, fn, opt_useCapture) {
-  if (typeof node.removeEventListener == 'function') {
-    node.removeEventListener(event, fn, opt_useCapture || false);
-  }
-  else if (typeof node.detatchEvent == 'function') {
-    node.detatchEvent('on' + event, fn);
-  }
-}
-
-
-function computeRectIntersection(rect1, rect2) {
-  var top = Math.max(rect1.top, rect2.top);
-  var bottom = Math.min(rect1.bottom, rect2.bottom);
-  var left = Math.max(rect1.left, rect2.left);
-  var right = Math.min(rect1.right, rect2.right);
-  var width = right - left;
-  var height = bottom - top;
-
-  return (width >= 0 && height >= 0) && {
-    top: top,
-    bottom: bottom,
-    left: left,
-    right: right,
-    width: width,
-    height: height
-  };
-}
-
-function getBoundingClientRect(el) {
-  var rect;
-
-  try {
-    rect = el.getBoundingClientRect();
-  } catch (err) {
-    // Ignore Windows 7 IE11 "Unspecified error"
-    // https://github.com/WICG/IntersectionObserver/pull/205
-  }
-
-  if (!rect) return getEmptyRect();
-
-  // Older IE
-  if (!(rect.width && rect.height)) {
-    rect = {
-      top: rect.top,
-      right: rect.right,
-      bottom: rect.bottom,
-      left: rect.left,
-      width: rect.right - rect.left,
-      height: rect.bottom - rect.top
-    };
-  }
-  return rect;
-}
-
-function containsDeep(parent, child) {
-  var node = child;
-  while (node) {
-    if (node == parent) return true;
-
-    node = getParentNode(node);
-  }
-  return false;
-}
-
-function getParentNode(node) {
-  var parent = node.parentNode;
-
-  if (parent && parent.nodeType == 11 && parent.host) {
-    // If the parent is a shadow root, return the host element.
-    return parent.host;
-  }
-  return parent;
-}
-
-window.IntersectionObserver = IntersectionObserver;
-window.IntersectionObserverEntry = IntersectionObserverEntry;
