@@ -113,8 +113,6 @@ export const Event = {
       node.addEventListener(event, fn, opt_useCapture);
     } else if (node.attachEvent) {
       node.attachEvent('on' + event, fn);
-    } else {
-      node['on' + event] = fn;
     }
   },
 
@@ -123,8 +121,6 @@ export const Event = {
       node.removeEventListener(event, fn, opt_useCapture);
     } else if (node.detatchEvent) {
       node.detatchEvent('on' + event, fn);
-    } else {
-      node['on' + event] = null;
     }
   }
 }

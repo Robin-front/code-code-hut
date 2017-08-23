@@ -6,11 +6,3 @@
 # polyfill
 
 [polyfill es6](./src/index.js) fork from [WICG](https://github.com/WICG/IntersectionObserver)
-
-# lazyload
-
-```js
-$('.J-lazy-img').lazyload();
-Lazyload(document.querySelector('.J-lazy-img'));
-Lazyload('.J-lazy-img');
-```
