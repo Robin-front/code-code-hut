@@ -8,3 +8,4 @@
 6. [ZigZag Conversion](ZigZagConversion.md) 蛇形转换 _medium_
 7. [permute](permute.md) 对字符串进行全排列
 8. [increase](increase.md) 模拟二进制自增
+9. [random string](randomString.md) 生成指定长度随机字符串
