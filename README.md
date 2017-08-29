@@ -11,3 +11,4 @@ code code hut! 🤓  not coconut! 😕
 - [Leetcode](./leetcode/readme.md)
 - [requestAnimationFrame.js](./requestAnimationFrame.js) *requestAnimationFrame polyfill*
 - [schdule.js](./schdule.js) *easy to invoke requestAnimationFrame*
+- [qrcode scanning](./qrcodeScannning/readme.md)
