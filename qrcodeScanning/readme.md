@@ -3,4 +3,4 @@
 
 thanks for [https://github.com/LazarSoft/jsqrcode](https://github.com/LazarSoft/jsqrcode)
 
-[demo](./index.html)
+[演示 demo](https://robin-front.github.io/code-code-hut/qrcodeScanning/index.html)
