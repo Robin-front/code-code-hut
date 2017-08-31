@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>qrcode scanning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body,
+    input {
+      font-size: 14pt
+    }
+
+    input,
+    label {
+      vertical-align: middle
+    }
+
+    .qrcode-text {
+      width: 90%;
+      height: 5em;
+      margin: auto;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none;
+    }
+
+    .qrcode-text-btn {
+      display: inline-block;
+      background: url(https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg) 4px 50% no-repeat;
+      background-size: auto 70%;
+      margin-bottom: 20px;
+      padding: 2px 8px;
+      padding-left: 30px;
+      border: 1px solid #666;
+      border-radius: 3px;
+      cursor: pointer
+    }
+
+    .qrcode-text-btn>input[type=file] {
+      position: absolute;
+      overflow: hidden;
+      width: 1px;
+      height: 1px;
+      opacity: 0
+    }
+  </style>
+</head>
+
+<body>
+
+  <label class="qrcode-text-btn">
+    <span>scanning</span>
+    <input type='file' accept="image/*" capture='environment' onclick="return showQRIntro();" onchange="openQRCamera(this);" tabindex='-1'>
+  </label>
+  <textarea class="qrcode-text" name="name" placeholder="解释后的内容"></textarea>
+
+  <script src="./qrcode.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    function openQRCamera(node) {
+      var reader = new FileReader();
+      reader.onload = function() {
+        node.value = "";
+        qrcode.callback = function(res) {
+          if (res instanceof Error) {
+            alert("没有找到二维码，请重试确定拍到二维码。");
+          } else {
+            document.querySelector('.qrcode-text').value = res;
+          }
+        };
+        qrcode.decode(reader.result);
+      };
+      reader.readAsDataURL(node.files[0]);
+    }
+
+    function showQRIntro() {
+      return confirm("将使用相机拍摄二维码");
+    }
+  </script>
+
+</body>
+
+</html>

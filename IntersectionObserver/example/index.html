@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="">
+    <title>intersection observer</title>
+    <style>
+      div {
+        min-height: 500px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div>
+      <img class="js-lazy-image" data-origin="https://307a6ed092846b809be7-9cfa4cf7c673a59966ad8296f4c88804.ssl.cf3.rackcdn.com/intersection-observer/intersection-observer.png" alt="">
+    </div>
+    <div>
+      <img class="js-lazy-image" data-origin="https://307a6ed092846b809be7-9cfa4cf7c673a59966ad8296f4c88804.ssl.cf3.rackcdn.com/intersection-observer/paul-lewis-intersection-observer.png" alt="">
+    </div>
+    <div>
+      <img class="js-lazy-image" data-origin="https://developers.google.com/web/updates/images/2016/04/intersectionobserver/intersectratio.png" alt="">
+    </div>
+
+  <script src="../dist/intersectionObserver.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    ;(function (){
+      const images = document.querySelectorAll('.js-lazy-image');
+      const config = {
+        rootMargin: '50px 0px',
+        threshold: 0.01
+      };
+
+      function onIntersection(entries) {
+        entries.forEach(entry => {
+          if (entry.intersectionRatio > 0) {
+            observer.unobserve(entry.target);
+            preloadImage(entry.target);
+          }
+        });
+      }
+
+      function preloadImage (el){
+        var origin = el.getAttribute('data-origin');
+        el.setAttribute('src', origin);
+      }
+
+
+      let observer = new IntersectionObserver(onIntersection, config);
+      images.forEach(image => {
+        observer.observe(image);
+      });
+    })()
+  </script>
+  </body>
+</html>
