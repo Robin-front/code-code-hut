@@ -7,5 +7,6 @@
 5. [Longest Palindromic Substring](longestPalindromicSubstring.md) 找出字符串中最长的回文字符串。  _medium_
 6. [ZigZag Conversion](ZigZagConversion.md) 蛇形转换 _medium_
 7. [permute](permute.md) 对字符串进行全排列
-8. [increase](increase.md) 模拟二进制自增
-9. [random string](randomString.md) 生成指定长度随机字符串
+8. [increase](increase.md) 模拟二进制自增 _medium_
+9. [random string](randomString.md) 生成指定长度随机字符串 _simple_
+10. [flowerbed](flowerbed.md) 种花 _simple_

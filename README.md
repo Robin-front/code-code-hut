@@ -12,3 +12,4 @@ code code hut! 🤓  not coconut! 😕
 - [requestAnimationFrame.js](./requestAnimationFrame.js/requestAnimationFrame.js) *requestAnimationFrame polyfill*
 - [schdule.js](./schdule.js) *easy to invoke requestAnimationFrame*
 - [qrcode scanning](./qrcodeScanning/readme.md)
+- [requestIdleCallback](./requestIdleCallback) *应用*
