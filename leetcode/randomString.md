@@ -1,4 +1,6 @@
 
+# 9. [random string](randomString.md) 生成指定长度随机字符串 _simple_
+
 version 1:
 
 ```javascript

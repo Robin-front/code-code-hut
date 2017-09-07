@@ -1,5 +1,5 @@
 
-## 没什么，就是刷！用 javascript!
+## 解答的过程，也是借鉴他人思路的过程
 
 1. [Two Sum](towsum.md) 给定一个数组和一个目标值，在数组中找出两个数的和为目标值，返回两个数的下标。  _simple_
 2. [Add Two Numbers](addtwonumbers.md) 使用单链模拟两数相加。  _medium_
@@ -10,3 +10,6 @@
 8. [increase](increase.md) 模拟二进制自增 _medium_
 9. [random string](randomString.md) 生成指定长度随机字符串 _simple_
 10. [flowerbed](flowerbed.md) 种花 _simple_
+11. [Reverse Integer](reverseInteger.md) 反转32位数字整型 _simple_
+12. [String to Integer (atoi)](stringToInteger.md) 字符串转数字 _simple_
+13. [Palindrome Number](palindromeNumber.md) 判断回文数字 _simple_
