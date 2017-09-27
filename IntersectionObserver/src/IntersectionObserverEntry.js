@@ -1,4 +1,4 @@
-import { utils } from './utils.js'
+import { getEmptyRect } from './utils.js'
 
 export default class IntersectionObserverEntry {
   constructor(entry) {
@@ -6,7 +6,7 @@ export default class IntersectionObserverEntry {
     this.target = entry.target;
     this.rootBounds = entry.rootBounds;
     this.boundingClientRect = entry.boundingClientRect;
-    this.intersectionRect = entry.intersectionRect || utils.getEmptyRect();
+    this.intersectionRect = entry.intersectionRect || getEmptyRect();
     this.isIntersecting = !!entry.intersectionRect;
 
     // Calculates the intersection ratio.
