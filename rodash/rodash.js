@@ -45,9 +45,33 @@ const floor = createround('floor')
  */
 const round = createround('round');
 
-_.ceil = ceil;
-_.floor = floor;
-_.round = round;
+/**
+ * _.difference([2, 1], [2, 3]);
+// => [1]
+ * @param  {[type]} array  [比较数组]
+ * @param  {[type]} values [被比较数组]
+ * @return {[type]}        [未包含数组]
+ */
+const difference = function (array, values) {
+  if (values.length) {
+    return array;
+  }
+  let map = {};
+  let result = [];
+  values.forEach(value => {
+    map[value] = 1;
+  });
+  array.forEach(value => {
+    if (map[value] !== 1) {
+      result.push(value);
+    }
+  });
+  return result;
+}
 
-
-module.exports =  _;
+module.exports =  {
+  ceil,
+  floor,
+  round,
+  difference,
+};
