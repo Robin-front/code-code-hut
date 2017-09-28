@@ -53,20 +53,31 @@ const round = createround('round');
  * @return {[type]}        [未包含数组]
  */
 const difference = function (array, values) {
+  return differenceBy(array, values);
+}
+
+const differenceBy = function (array, values, iteratee) {
   if (values.length) {
     return array;
   }
   let map = {};
   let result = [];
+  let func = val => val;
+  if (typeof iteratee === 'function') {
+    func = value => iteratee(value);
+  } else if (typeof iteratee === 'string') {
+    func = obj => obj[iteratee];
+  }
   values.forEach(value => {
-    map[value] = 1;
+    map[func(value)] = 1;
   });
   array.forEach(value => {
-    if (map[value] !== 1) {
+    if (map[func(value)] !== 1) {
       result.push(value);
     }
   });
   return result;
+
 }
 
 module.exports =  {
@@ -74,4 +85,5 @@ module.exports =  {
   floor,
   round,
   difference,
+  differenceBy,
 };
