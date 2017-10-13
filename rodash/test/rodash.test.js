@@ -28,3 +28,23 @@ describe('Math', function(){
     });
   });
 });
+
+describe('difference', function() {
+  it('_.difference([2, 1], [2, 3]) should return [1]', function () {
+    const result = _.difference([2, 1], [2, 3]);
+    assert.equal(result.length, 1);
+    assert.equal(result[0], 1);
+  });
+
+  it('_.differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor) should return [1.2]', function () {
+    const result = _.differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor);
+    assert.equal(result.length, 1);
+    assert.equal(result[0], 1.2);
+  });
+
+  it("_.differenceBy([{ 'x': 2 }, { 'x': 1 }], [{ 'x': 1 }], 'x') should return [{'x': 2}]", function () {
+    const result = _.differenceBy([{ 'x': 2 }, { 'x': 1 }], [{ 'x': 1 }], 'x');
+    assert.equal(result.length, 1);
+    assert.equal(result[0].x, 2);
+  });
+});

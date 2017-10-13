@@ -45,19 +45,8 @@ const floor = createround('floor')
  */
 const round = createround('round');
 
-/**
- * _.difference([2, 1], [2, 3]);
-// => [1]
- * @param  {[type]} array  [比较数组]
- * @param  {[type]} values [被比较数组]
- * @return {[type]}        [未包含数组]
- */
-const difference = function (array, values) {
-  return differenceBy(array, values);
-}
-
-const differenceBy = function (array, values, iteratee) {
-  if (values.length) {
+function baseDifference(array, values, iteratee) {
+  if (!values.length) {
     return array;
   }
   let map = {};
@@ -77,7 +66,28 @@ const differenceBy = function (array, values, iteratee) {
     }
   });
   return result;
+}
+/**
+ * _.difference([2, 1], [2, 3]);
+ * // => [1]
+ * @param  {[type]} array  [比较数组]
+ * @param  {[type]} values [被比较数组]
+ * @return {[type]}        [未包含数组]
+ */
+const difference = function (array, values) {
+  return baseDifference(array, values);
+}
 
+/**
+ * _.differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor);
+ * // => [1.2]
+ * // The `_.property` iteratee shorthand.
+ *
+ * _.differenceBy([{ 'x': 2 }, { 'x': 1 }], [{ 'x': 1 }], 'x');
+ * // => [{ 'x': 2 }]
+ */
+const differenceBy = function (array, values, iteratee) {
+  return baseDifference(array, values, iteratee);
 }
 
 module.exports =  {

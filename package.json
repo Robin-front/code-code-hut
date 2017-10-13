@@ -4,31 +4,6 @@
   "description": "code-code-hut",
   "main": "index.js",
   "repository": "https://github.com/Robin-front/code-code-hut.git",
-  "author": "robin",
-  "license": "MIT",
-  "scripts": {
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack",
-    "build:dll": "./node_modules/.bin/webpack webpack.dll.js",
-    "dev": "./node_modules/.bin/webpack --progress --colors --watch",
-    "rollup": "./node_modules/.bin/rollup -c -w"
-  },
-  "dependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babelrc-rollup": "^3.0.0",
-    "css-loader": "^0.28.2",
-    "extract-text-webpack-plugin": "^2.1.0",
-    "node-sass": "^4.5.3",
-    "rollup": "^0.41.6",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-uglify": "^2.0.1",
-    "rollup-watch": "^3.2.2",
-    "sass-loader": "^6.0.5",
-    "style-loader": "^0.18.1",
-    "url-loader": "^0.5.8",
-    "webpack": "^2.6.0"
-  }
+  "author": "robin <lb.robin1991@gmail.com>",
+  "license": "MIT"
 }
