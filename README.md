@@ -17,3 +17,4 @@ Record, Practice, Innovation
 - [qrcode scanning](./qrcodeScanning/readme.md)
 - [requestIdleCallback](./requestIdleCallback) *应用*
 - [node combo server](./node-combo)
+- [3d 图形投影计算](./3D) *学习*
