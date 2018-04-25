@@ -1,10 +1,23 @@
 {
   "name": "IntersectionObserver",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "intersectionObserver polyfill",
-  "main": "index.js",
-  "author": "robin",
+  "main": "src/index.js",
+  "author": "robin <lb.robin1991@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Robin-front/code-code-hut/tree/master/IntersectionObserver"
+  },
+  "bugs": {
+    "url": "https://github.com/Robin-front/code-code-hut/tree/master/IntersectionObserver"
+  },
+  "keywords": [
+    "IntersectionObserver",
+    "polyfill",
+    "lazyload",
+    "performance"
+  ],
   "scripts": {
     "build": "./node_modules/.bin/rollup -c -w"
   },

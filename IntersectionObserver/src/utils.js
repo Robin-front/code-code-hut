@@ -26,11 +26,11 @@ export const throttle = (fn, timeout, opts = {
   return function() {
     if (!timer) {
       timer = setTimeout(function() {
-        lastTime = utils.now();
+        lastTime = now();
         fn();
         timer = null;
       }, timeout);
-    } else if ((utils.now() - lastTime) > maxTime) {
+    } else if ((now() - lastTime) > maxTime) {
       fn();
       clearTimeout(timer);
       timer = null;
@@ -67,7 +67,7 @@ export const getBoundingClientRect = el => {
   }
 
   if (!rect)
-    return utils.getEmptyRect();
+    return getEmptyRect();
 
   // Older IE
   if (!(rect.width && rect.height)) {
@@ -89,7 +89,7 @@ export const containsDeep = (parent, child) => {
     if (node == parent)
       return true;
 
-    node = utils.getParentNode(node);
+    node = getParentNode(node);
   }
   return false;
 };

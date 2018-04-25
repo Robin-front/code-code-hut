@@ -5,4 +5,4 @@
 
 # polyfill
 
-[polyfill es6](./src/index.js) fork from [WICG](https://github.com/WICG/IntersectionObserver)
+[polyfill es6](./src/index.js) fork from [WICG](https://github.com/w3c/IntersectionObserver)

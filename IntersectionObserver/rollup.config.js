@@ -10,10 +10,10 @@ let external = Object.keys(pkg.dependencies);
 let config = {
   input: 'src/index.js',
   output: {
-    file: 'dist/intersectionObserver.js',
+    file: 'dist/IntersectionObserver.js',
     format:'umd',
   },
-  name: 'intersectionObserver',
+  name: 'IntersectionObserver',
   plugins: [
     babel(babelrc({ addModuleOptions: false })),
     // uglify()
